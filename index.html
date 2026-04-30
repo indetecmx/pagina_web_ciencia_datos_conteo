@@ -1,302 +1,110 @@
-<!-- 🔥 IMPORTAR MONTSERRAT -->
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>INDETEC · Reportes PBI</title>
 
 <style>
+  body{
+    font-family: system-ui, Arial;
+    margin:0;
+    background:#0b0d12;
+    color:#eaeef8;
+  }
 
-/* 🔥 RESET CLAVE */
-* {
-  box-sizing: border-box;
-}
+  header{
+    padding:20px;
+    border-bottom:1px solid #222;
+  }
 
-/* 🔥 BODY */
-body {
-  margin: 0;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 14px; /* 👈 base para que no se mueva todo */
-  line-height: 1.4;
-  background-color: #ffffff;
-  overflow: hidden;
-  display: flex;
-}
+  h1{
+    margin:0;
+    font-size:18px;
+  }
 
-/* 🔥 SIDEBAR */
-.barra {
-  width: 260px;
-  height: 100vh;
-  background-color: #f2f2f2;
-  padding: 20px;
-  border-right: 1px solid #e0e0e0;
-  display: flex;
-  flex-direction: column;
-}
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:12px;
+    padding:20px;
+  }
 
-/* 🔥 LOGO */
-.logo {
-  width: 100%;
-  height: 200px; /* 👈 bajé un poco para equilibrio */
-  object-fit: contain;
-  margin-bottom: 20px;
-}
+  button{
+    padding:14px;
+    border:1px solid #2a2f3a;
+    border-radius:10px;
+    background:#121621;
+    color:white;
+    cursor:pointer;
+    text-align:left;
+    transition:.2s;
+  }
 
-/* 🔥 TÍTULO */
-h2 {
-  font-size: 22px;
-  font-weight: 600;
-  color: #6e6e6e;
-  margin-bottom: 25px;
-}
-
-/* 🔥 OPCIONES */
-.subtitulo {
-  font-size: 15px;
-  font-weight: 500;
-  color: #a8996e;
-  font-weight: 600;
-  padding: 12px 10px;
-  margin-top: 20px;
-  margin-bottom: 5px;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: 0.3s;
-}
-
-.subtitulo:hover {
-  background-color: #f5f5f5;
-  color: #000;
-}
-
-.subtitulo.activo {
-  background-color: #a8996e;
-  color: #fff;
-}
-
-/* 🔥 SELECTORES */
-.select-box {
-  display: none;
-  margin-bottom: 25px;
-}
-
-select {
-  width: 100%;
-  padding: 6px;
-  margin-top: 8px;
-  font-family: 'Montserrat', sans-serif;
-}
-
-/* 🔥 CONTENIDO */
-.main {
-  flex: 1;
-  height: 100vh;
-  position: relative;
-}
-
-/* 🔥 BIENVENIDA */
-#inicio {
-  font-family: 'Montserrat', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  text-align: center;
-  font-weight: 600; 
-}
-
-#inicio h3 {
-  font-size: 60px; /* 👈 ajustado para Montserrat */
-  font-weight: 300; /* 👈 elegante */
-  margin: 0;
-  font-weight: 600; 
-  color: #6e6e6e;
-}
-
-#inicio p {
-  font-size: 20px;
-  color: #a8996e;
-  margin-top: 10px;
-  font-weight: 600; 
-}
-
-/* 🔥 CONTENEDOR */
-.visor-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-/* 🔥 IFRAME */
-#visor {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: none;
-}
-
-/* 🔥 DIRECCIÓN */
-.direccion {
-  margin-top: auto;
-  font-size: 12px;
-  color: #6e6e6e;
-  border-top: 1px solid #e0e0e0;
-  padding-top: 10px;
-  line-height: 1.4;
-}
-
-.direccion strong {
-  color: #a8996e;
-}
-
+  button:hover{
+    background:#1b2130;
+    border-color:#3a72ff;
+  }
 </style>
+</head>
 
-<div class="barra">
+<body>
 
-  <img src="https://lh3.googleusercontent.com/d/1FzUKuUWBFdZJkf3tVgaq2IVvJcAVSeXT" class="logo">
+<header>
+  <h1>Datos Hacendarios · Reportes Power BI</h1>
+</header>
 
-  <h2>Ciencia de Datos</h2>
-
-  <!-- 🔹 ESTIMACIONES -->
-  <span class="subtitulo" onclick="activar(this); mostrar('estimaciones')">Estimaciones</span>
-  <div id="estimaciones" class="select-box">
-    <select onchange="cambiar(this.value)">
-      <option value="">Selecciona un reporte</option>
-      <option value="https://indetec-page.cdhindetec.workers.dev/go?id=pronosticos&src=boton_inicio">Pronósticos</option>
-      <option value="https://indetec-page.cdhindetec.workers.dev/go?id=impuestos_potenciales&src=boton_inicio">Impuestos potenciales</option>
-      <option value="https://indetec-page.cdhindetec.workers.dev/go?id=predial_potencial&src=boton_inicio">Impuesto predial potencial</option>
-    </select>
-  </div>
-
-  <!-- 🔹 INFORMACIÓN -->
-  <span class="subtitulo" onclick="activar(this); mostrar('informacion')">Información</span>
-  <div id="informacion" class="select-box">
-    <select onchange="cambiar(this.value)">
-
-      <option value="">Selecciona un reporte</option>
-
-      <optgroup label="📊 Ingresos">
-        <option value="https://indetec-page.cdhindetec.workers.dev/go?id=efipem_ingresos&src=boton_inicio">Estadísticas EFIPEM: Ingresos</option>
-        <option value="https://indetec-page.cdhindetec.workers.dev/go?id=leyes_ingresos&src=boton_inicio">Leyes de ingresos</option>
-        <option value="https://indetec-page.cdhindetec.workers.dev/go?id=leyes_impuestos&src=boton_inicio">Leyes de ingresos: Impuestos</option>
-        <option value="https://indetec-page.cdhindetec.workers.dev/go?id=impuestos_vig&src=boton_inicio">Impuestos vigentes estatales 2026</option>
-        <option value="https://indetec-page.cdhindetec.workers.dev/go?id=derechos_agua&src=boton_inicio">Derechos de agua potable</option>
-      </optgroup>
-
-      <optgroup label="💸 Egresos">
-        <option value="https://indetec-page.cdhindetec.workers.dev/go?id=efipem_egresos&src=boton_inicio">Estadísticas EFIPEM: Egresos</option>
-        <option value="https://indetec-page.cdhindetec.workers.dev/go?id=presupuesto_egresos&src=boton_inicio">Presupuesto de egresos</option>
-        <option value="https://indetec-page.cdhindetec.workers.dev/go?id=presupuesto_egresos_cap&src=boton_inicio">Presupuesto de egresos por capítulo</option>
-      </optgroup>
-
-     <optgroup label="📖 Ley de Disciplina Financiera (LDF)">
-        <option value="https://indetec-page.cdhindetec.workers.dev/go?id=estado_analitico&src=boton_inicio">Estado Analítico de los Ingresos</option>
-        <option value="https://indetec-page.cdhindetec.workers.dev/go?id=proyecciones&src=boton_inicio">Proyecciones de ingresos y egresos</option>
-        <option value="https://indetec-page.cdhindetec.workers.dev/go?id=resultados&src=boton_inicio">Resultados de ingresos y egresos</option>
-      </optgroup>
-
-      <optgroup label="🏛️ Cuentas Públicas y deuda">
-        <option value="https://indetec-page.cdhindetec.workers.dev/go?id=panorama_hacienda&src=boton_inicio">Panorama de la Hacienda Pública Estatal</option>
-        <option value="https://indetec-page.cdhindetec.workers.dev/go?id=cp_estatales&src=boton_inicio">Cuentas Públicas estatales</option>
-        <option value="https://indetec-page.cdhindetec.workers.dev/go?id=cp_municipales&src=boton_inicio">Cuentas Públicas municipales</option>
-        <option value="https://indetec-page.cdhindetec.workers.dev/go?id=deuda_mun&src=boton_inicio">Deuda Pública Municipal</option>
-      </optgroup>
-
-      <optgroup label="🌍 Medio ambiente">
-        <option value="https://indetec-page.cdhindetec.workers.dev/go?id=ambiental&src=boton_inicio">Emisiones de contaminantes</option>
-      </optgroup>
-
-      <optgroup label="📈 Economía">
-        <option value="https://indetec-page.cdhindetec.workers.dev/go?id=indicadores&src=boton_inicio">Indicadores económicos</option>
-        <option value="https://indetec-page.cdhindetec.workers.dev/go?id=censos_eco&src=boton_inicio">Censos Económicos 2024</option>
-        <option value="https://indetec-page.cdhindetec.workers.dev/go?id=denue&src=boton_inicio">Estadísticas DENUE: Mapas</option>
-      </optgroup>
-    </select>
-  </div>
-
-<!-- 🔹 PUBLICACIONES -->
-<span class="subtitulo" onclick="activar(this); mostrarPublicaciones()">
-  Publicaciones
-</span>
-
-<!-- 🔥 DIRECCIÓN -->
-  <div class="direccion">
-    <p><strong>Dirección:</strong></p>
-    <p>C. Paseo del Alba No. 1276, Col. Solares Residencial, C.P. 45019, Zapopan, Jal.</p>
-    <p>Tel: 33-36-69-55-50</p>
-  </div>
-</div>
-
-<div class="main">
-
-  <div id="inicio">
-    <div>
-      <h3>Explora la información</h3>
-      <p>Selecciona una sección para comenzar</p>
-    </div>
-  </div>
-
-  <div class="visor-container">
-    <iframe id="visor"></iframe>
-  </div>
-
-</div>
+<div id="grid" class="grid"></div>
 
 <script>
-function cambiar(link) {
-  let inicio = document.getElementById("inicio");
-  let visor = document.getElementById("visor");
+const WORKER_BASE = "indetec-tracker.cdhindetec.workers.dev";
 
-  if (link === "") {
-    visor.style.display = "none";
-    inicio.style.display = "flex";
-  } else {
-    inicio.style.display = "none";
-    visor.style.display = "block";
-    visor.src = link;
-  }
+/* ================= REPORTES ================= */
+const REPORTS = {
+  pronosticos:"Pronósticos",
+  impuestos_potenciales:"Impuestos potenciales",
+  predial_potencial:"Predial potencial",
+  efipem_ingresos:"EFIPEM Ingresos",
+  leyes_ingresos:"Leyes de ingresos",
+  leyes_impuestos:"Leyes de impuestos",
+  impuestos_vig:"Impuestos vigentes",
+  derechos_agua:"Derechos de agua",
+  efipem_egresos:"EFIPEM egresos",
+  presupuesto_egresos:"Presupuesto egresos",
+  presupuesto_egresos_cap:"Presupuesto egresos por capítulo",
+  estado_analitico:"Estado analítico",
+  proyecciones:"Proyecciones",
+  resultados:"Resultados",
+  panorama_hacienda:"Panorama hacienda",
+  cp_estatales:"Cuentas estatales",
+  cp_municipales:"Cuentas municipales",
+  deuda_mun:"Deuda municipal",
+  ambiental:"Medio ambiente",
+  indicadores:"Indicadores",
+  censos_eco:"Censos económicos",
+  denue:"DENUE",
+  publicaciones:"Publicaciones"
+};
+
+/* ================= RENDER ================= */
+function render(){
+  const grid = document.getElementById("grid");
+
+  grid.innerHTML = Object.keys(REPORTS).map(id => `
+    <button onclick="openReport('${id}')">
+      ${REPORTS[id]}
+    </button>
+  `).join("");
 }
 
-function ocultarTodos() {
-  document.getElementById("estimaciones").style.display = "none";
-  document.getElementById("informacion").style.display = "none";
+/* ================= REDIRECCIÓN ================= */
+function openReport(id){
+  window.location.href =
+    `${WORKER_BASE}/go?id=${encodeURIComponent(id)}&src=index`;
 }
 
-function mostrar(seccion) {
-  ocultarTodos();
-  document.getElementById(seccion).style.display = "block";
-}
-
-function mostrarPublicacion() {
-  ocultarTodos();
-
-  let inicio = document.getElementById("inicio");
-  let visor = document.getElementById("visor");
-
-  inicio.style.display = "none";
-  visor.style.display = "block";
-
-  visor.src = "https://indetec-page.cdhindetec.workers.dev/go?id=publicaciones&src=boton_inicio";
-}
-
-function activar(elemento) {
-  let items = document.querySelectorAll(".subtitulo");
-  items.forEach(el => el.classList.remove("activo"));
-  elemento.classList.add("activo");
-}
-
-function mostrarPublicaciones() {
-  ocultarTodos();
-
-  let inicio = document.getElementById("inicio");
-  let visor = document.getElementById("visor");
-
-  inicio.style.display = "none";
-  visor.style.display = "block";
-
-  visor.src = "https://indetec-page.cdhindetec.workers.dev/go?id=publicaciones&src=boton_inicio";
-}
-
+render();
 </script>
+
+</body>
+</html>
