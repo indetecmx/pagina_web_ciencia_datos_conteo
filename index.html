@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>INDETEC · Reportes PBI</title>
+
+<style>
+  body{
+    font-family: system-ui, Arial;
+    margin:0;
+    background:#0b0d12;
+    color:#eaeef8;
+  }
+
+  header{
+    padding:20px;
+    border-bottom:1px solid #222;
+  }
+
+  h1{
+    margin:0;
+    font-size:18px;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:12px;
+    padding:20px;
+  }
+
+  button{
+    padding:14px;
+    border:1px solid #2a2f3a;
+    border-radius:10px;
+    background:#121621;
+    color:white;
+    cursor:pointer;
+    text-align:left;
+    transition:.2s;
+  }
+
+  button:hover{
+    background:#1b2130;
+    border-color:#3a72ff;
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Datos Hacendarios · Reportes Power BI</h1>
+</header>
+
+<div id="grid" class="grid"></div>
+
+<script>
+const WORKER_BASE = "indetec-tracker.cdhindetec.workers.dev";
+
+/* ================= REPORTES ================= */
+const REPORTS = {
+  pronosticos:"Pronósticos",
+  impuestos_potenciales:"Impuestos potenciales",
+  predial_potencial:"Predial potencial",
+  efipem_ingresos:"EFIPEM Ingresos",
+  leyes_ingresos:"Leyes de ingresos",
+  leyes_impuestos:"Leyes de impuestos",
+  impuestos_vig:"Impuestos vigentes",
+  derechos_agua:"Derechos de agua",
+  efipem_egresos:"EFIPEM egresos",
+  presupuesto_egresos:"Presupuesto egresos",
+  presupuesto_egresos_cap:"Presupuesto egresos por capítulo",
+  estado_analitico:"Estado analítico",
+  proyecciones:"Proyecciones",
+  resultados:"Resultados",
+  panorama_hacienda:"Panorama hacienda",
+  cp_estatales:"Cuentas estatales",
+  cp_municipales:"Cuentas municipales",
+  deuda_mun:"Deuda municipal",
+  ambiental:"Medio ambiente",
+  indicadores:"Indicadores",
+  censos_eco:"Censos económicos",
+  denue:"DENUE",
+  publicaciones:"Publicaciones"
+};
+
+/* ================= RENDER ================= */
+function render(){
+  const grid = document.getElementById("grid");
+
+  grid.innerHTML = Object.keys(REPORTS).map(id => `
+    <button onclick="openReport('${id}')">
+      ${REPORTS[id]}
+    </button>
+  `).join("");
+}
+
+/* ================= REDIRECCIÓN ================= */
+function openReport(id){
+  window.location.href =
+    `${WORKER_BASE}/go?id=${encodeURIComponent(id)}&src=index`;
+}
+
+render();
+</script>
+
+</body>
+</html>
